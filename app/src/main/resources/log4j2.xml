@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- XML 형태로 설정파일 작성 가능 -->
+<!-- status - 설정파일 자체에 대한 로그 레벨 -->
+<Configuration status="info" name="logging-config">
+
+</Configuration>
