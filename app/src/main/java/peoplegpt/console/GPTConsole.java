@@ -2,6 +2,8 @@ package peoplegpt.console;
 
 import java.util.Scanner;
 
+import peoplegpt.domain.post.model.dto.response.PostListResponse;
+import peoplegpt.domain.post.service.PostService;
 import peoplegpt.domain.user.UserFactory;
 import peoplegpt.domain.user.controller.UserController;
 import peoplegpt.domain.user.model.dto.request.SignInRequest;
@@ -60,7 +62,8 @@ public class GPTConsole {
             printHello();
 
             systemOn = indexPage();
-            systemOn = mainPage();
+            postPage();
+            // systemOn = mainPage();
 
         }
     }
@@ -132,7 +135,14 @@ public class GPTConsole {
             System.out.println(response.getEmail() + "님 환영합니다. 회원가입이 완료되었습니다.");
         }
     }
-    
+
+    private static boolean postPage() {
+        PostListResponse response = PostService.displayPostsByCategory("QNA");
+
+        for(int i = 0; i < response.length; )
+
+    }
+
     private static boolean  mainPage() {
         boolean systemOn = true;
         int category = 1; // default 1 = QnA

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8afd103d-830b-47ed-b140-e825d1d90115" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/peoplegpt/console/GPTConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/peoplegpt/console/GPTConsole.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/peoplegpt/domain/post/controller/PostController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/peoplegpt/domain/post/model/dto/request/temp.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/peoplegpt/domain/post/model/dto/response/temp.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/peoplegpt/domain/post/model/entity/Category.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/peoplegpt/domain/post/model/entity/Post.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/peoplegpt/domain/post/repository/PostInit.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/peoplegpt/domain/post/service/PostService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/peoplegpt/domain/post/service/impl/temp.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/log.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/log.log" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 4
+}]]></component>
+  <component name="ProjectId" id="2suwjIO9c20OfcdVwg77WWqBa8R" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.backend-peoplegpt:app [:app:App.main()].executor": "Run",
+    "Gradle.backend-peoplegpt:app [:app:PostController.main()].executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "post/8",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/iseoyeon/Desktop/woori-workspace/backend-peoplegpt",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/src/main/java/peoplegpt/domain" />
+      <recent name="$PROJECT_DIR$/app/src/main/resources" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="peoplegpt.domain.post.model.dto.response" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.App">
+    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="peoplegpt.App" />
+      <module name="peoplegpt.app.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="peoplegpt.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PostController" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="peoplegpt.domain.post.controller.PostController" />
+      <module name="peoplegpt.app.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="peoplegpt.domain.post.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.App" />
+        <item itemvalue="Application.PostController" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8afd103d-830b-47ed-b140-e825d1d90115" name="Changes" comment="" />
+      <created>1739318901663</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1739318901663</updated>
+      <workItem from="1739318902760" duration="19619000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
