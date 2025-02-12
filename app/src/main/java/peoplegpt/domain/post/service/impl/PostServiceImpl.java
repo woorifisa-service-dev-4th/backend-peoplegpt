@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import peoplegpt.domain.post.model.dto.response.PostDetailResponse;
 import peoplegpt.domain.post.model.dto.response.PostListResponse;
 import peoplegpt.domain.post.model.entity.Category;
 import peoplegpt.domain.post.model.entity.Post;
@@ -34,4 +35,10 @@ public class PostServiceImpl implements PostService {
         return new PostListResponse(posts);
     }
 
+    @Override
+    public PostDetailResponse getPostByPostId(long postId) {
+        Post post = postRepository.findPostByPostId(postId);
+        PostDetailResponse response = new PostDetailResponse(post.getPostId(),post.getUserId(), post.getTitle(), post.getContent(), post.getCategory(), post.getFilter(), post.getTag(), post.getStatus(), post.getCreatedAt());
+        return response;
+    }
 }

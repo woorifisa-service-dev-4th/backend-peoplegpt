@@ -1,5 +1,6 @@
 package peoplegpt.domain.post.controller;
 
+import peoplegpt.domain.post.model.dto.response.PostDetailResponse;
 import peoplegpt.domain.post.model.dto.response.PostListResponse;
 import peoplegpt.domain.post.service.PostService;
 
@@ -19,6 +20,11 @@ public class PostController {
             System.out.println(response);
         }
 
+        return response;
+    }
+
+    public PostDetailResponse displayPostByPostId(long postId) {
+        PostDetailResponse response = postService.getPostByPostId(postId);
         return response;
     }
 }
