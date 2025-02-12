@@ -1,4 +1,4 @@
-package main.java.peoplegpt.domain.post.service;
+package peoplegpt.domain.post.service;
 
 public interface PostService {
     

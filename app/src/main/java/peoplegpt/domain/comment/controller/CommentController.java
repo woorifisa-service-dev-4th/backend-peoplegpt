@@ -1,4 +1,4 @@
-package main.java.peoplegpt.domain.comment.controller;
+package peoplegpt.domain.comment.controller;
 
 public class CommentController {
     

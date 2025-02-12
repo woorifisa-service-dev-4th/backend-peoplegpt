@@ -1,4 +1,4 @@
-package main.java.peoplegpt.domain.post.controller;
+package peoplegpt.domain.post.controller;
 
 public class PostController {
     

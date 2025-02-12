@@ -1,6 +1,6 @@
-package main.java.peoplegpt.domain.comment.service.impl;
+package peoplegpt.domain.comment.service.impl;
 
-import main.java.peoplegpt.domain.comment.service.CommentService;
+import peoplegpt.domain.comment.service.CommentService;
 
 public class temp implements CommentService{
     

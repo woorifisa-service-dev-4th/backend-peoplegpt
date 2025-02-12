@@ -1,4 +1,4 @@
-package main.java.peoplegpt.domain.user.repository;
+package peoplegpt.domain.user.repository;
 
 public class UserInit {
     
