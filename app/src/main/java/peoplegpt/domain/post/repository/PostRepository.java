@@ -79,6 +79,14 @@ public class PostRepository {
         return result;
     }
 
+    // 게시글 상세 조회
+    public Post findPostByPostId(long postId) {
+        return posts.stream()
+                .filter(post -> post.getPostId() == postId)
+                .findFirst()
+                .orElse(null);
+    }
+
     public long generatePostId() {
         return posts.stream()
                 .mapToLong(Post::getPostId)

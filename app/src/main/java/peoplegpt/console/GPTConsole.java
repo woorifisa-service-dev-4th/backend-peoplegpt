@@ -5,14 +5,16 @@ import java.util.Scanner;
 
 import peoplegpt.domain.post.PostFactory;
 import peoplegpt.domain.post.controller.PostController;
+import peoplegpt.domain.post.model.dto.response.PostDetailResponse;
 import peoplegpt.domain.post.model.dto.response.PostListResponse;
 import peoplegpt.domain.post.model.entity.Post;
-import peoplegpt.domain.post.service.PostService;
 import peoplegpt.domain.user.UserFactory;
 import peoplegpt.domain.user.controller.UserController;
 import peoplegpt.domain.user.model.dto.request.SignInRequest;
 import peoplegpt.domain.user.model.dto.request.SignUpRequest;
 import peoplegpt.domain.user.model.dto.response.SignResponse;
+
+import static peoplegpt.domain.global.model.entity.DataStatus.ACTIVE;
 
 public class GPTConsole {
 
@@ -68,9 +70,9 @@ public class GPTConsole {
             printHello();
 
             // systemOn = indexPage();
-            systemOn = postPage();
+            // systemOn = postPage();
             // systemOn = mainPage();
-
+            systemOn = postDetailPage();
         }
     }
 
@@ -155,6 +157,21 @@ public class GPTConsole {
 
         return false;
 
+    }
+
+    private static boolean postDetailPage() {
+        PostDetailResponse response = postController.displayPostByPostId(1);
+
+        if (response.getStatus() == ACTIVE) {
+            System.out.println(response.getPostId());
+            System.out.println(response.getTitle());
+            System.out.println(response.getContent());
+            System.out.println(response.getCreatedAt());
+            System.out.println(response.getCategory());
+            System.out.println(response.getFilter());
+            System.out.println(response.getTag());
+        }
+        return false;
     }
 
     private static boolean  mainPage() {
