@@ -1,4 +1,4 @@
-package main.java.peoplegpt.domain.comment.repository;
+package peoplegpt.domain.comment.repository;
 
 public class CommentInit {
     

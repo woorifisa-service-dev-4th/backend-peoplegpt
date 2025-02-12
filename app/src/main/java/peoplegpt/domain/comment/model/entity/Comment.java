@@ -1,4 +1,4 @@
-package main.java.peoplegpt.domain.comment.model;
+package peoplegpt.domain.comment.model.entity;
 
 public class Comment {
     
