@@ -1,8 +1,12 @@
 package peoplegpt.console;
 
+import java.util.List;
 import java.util.Scanner;
 
+import peoplegpt.domain.post.PostFactory;
+import peoplegpt.domain.post.controller.PostController;
 import peoplegpt.domain.post.model.dto.response.PostListResponse;
+import peoplegpt.domain.post.model.entity.Post;
 import peoplegpt.domain.post.service.PostService;
 import peoplegpt.domain.user.UserFactory;
 import peoplegpt.domain.user.controller.UserController;
@@ -21,7 +25,9 @@ public class GPTConsole {
 
     private static Scanner scanner = new Scanner(System.in);
     private static UserFactory userFactory = new UserFactory();
+    private static PostFactory postFactory = new PostFactory();
     private static final UserController userController = userFactory.getUserController();
+    private static final PostController postController = postFactory.getPostController();
     
     private static void printHello() {
         System.out.println("==============================================================");
@@ -61,8 +67,8 @@ public class GPTConsole {
 
             printHello();
 
-            systemOn = indexPage();
-            postPage();
+            // systemOn = indexPage();
+            systemOn = postPage();
             // systemOn = mainPage();
 
         }
@@ -137,9 +143,17 @@ public class GPTConsole {
     }
 
     private static boolean postPage() {
-        PostListResponse response = PostService.displayPostsByCategory("QNA");
+        PostListResponse response = postController.displayPostsByCategory("QNA");
+        List<Post> posts = response.getPosts();
 
-        for(int i = 0; i < response.length; )
+        for(int i = 0; i < posts.size(); i++) {
+            Post post = posts.get(i);
+            System.out.println(post.getTitle());
+            System.out.println(post.getContent());
+            System.out.println(post.getCreatedAt());
+        }
+
+        return false;
 
     }
 
@@ -174,7 +188,7 @@ public class GPTConsole {
                 System.out.println("잘못된 입력입니다. 다시 입력해주세요.");
             }
         }
-        
+
         return true;
     }
 
