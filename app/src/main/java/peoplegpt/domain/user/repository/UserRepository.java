@@ -14,11 +14,18 @@ import peoplegpt.domain.global.model.entity.DataStatus;
 import peoplegpt.domain.user.model.entity.User;
 import peoplegpt.domain.user.model.entity.UserRole;
 
-public class UserInit {
+public class UserRepository {
     private static final String USER_DATA_PATH = "main/resources/user_data.txt";
-    private static final Logger logger = LogManager.getLogger(UserInit.class);
+    private static final Logger logger = LogManager.getLogger(UserRepository.class);
     
-    public List<User> parseUsersData() {
+
+    private List<User> users = parseUsersData();
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    private List<User> parseUsersData() {
         List<User> users = new ArrayList<>();
 
         // 파일에서 데이터를 읽어와서 User 객체로 변환 후 users에 추가
@@ -44,4 +51,21 @@ public class UserInit {
 
         return users;
     }
+
+    public User findUserByEmail(String email) {
+        return users.stream()
+                .filter(user -> user.getEmail().equals(email))
+                .findFirst()
+                .orElse(null);
+    }
+    public boolean isExistUserByEmail(String email) {
+        return users.stream()
+                .anyMatch(user -> user.getEmail().equals(email));
+    }
+    public long generateUserId() {
+        return users.stream()
+                .mapToLong(User::getUserId)
+                .max()
+                .orElse(0) + 1;
+    }    
 }
