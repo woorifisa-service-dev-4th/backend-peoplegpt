@@ -26,7 +26,7 @@ public class UserRepository {
     }
 
     private List<User> parseUsersData() {
-        List<User> users = new ArrayList<>();
+        List<User> result = new ArrayList<>();
 
         // 파일에서 데이터를 읽어와서 User 객체로 변환 후 users에 추가
         try(BufferedReader br = new BufferedReader(new FileReader(USER_DATA_PATH))) {
@@ -42,14 +42,14 @@ public class UserRepository {
                 LocalDateTime createdAt = LocalDateTime.parse(userData[6]);
 
                 User user = new User(userId, email, password, name, role, status, createdAt);
-                users.add(user);
+                result.add(user);
             }
         } catch (IOException e) {
             logger.error("Failed to read user data file", e);
             throw new RuntimeException("Failed to read user data file");
         }
 
-        return users;
+        return result;
     }
 
     public User findUserByEmail(String email) {
