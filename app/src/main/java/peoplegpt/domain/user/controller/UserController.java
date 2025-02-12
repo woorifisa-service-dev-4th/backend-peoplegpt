@@ -3,8 +3,7 @@ package peoplegpt.domain.user.controller;
 import peoplegpt.domain.user.model.dto.request.GetUserRequest;
 import peoplegpt.domain.user.model.dto.request.SignInRequest;
 import peoplegpt.domain.user.model.dto.request.SignUpRequest;
-import peoplegpt.domain.user.model.dto.response.SignInResponse;
-import peoplegpt.domain.user.model.dto.response.SignUpResponse;
+import peoplegpt.domain.user.model.dto.response.SignResponse;
 import peoplegpt.domain.user.model.dto.response.UserResponse;
 import peoplegpt.domain.user.service.UserService;
 
@@ -20,12 +19,12 @@ public class UserController {
         return userService.getUser(request);
     }
 
-    public SignUpResponse signUpUser(SignUpRequest request) {
-        return userService.signUp(request);
+    public SignResponse signUpUser(SignUpRequest request) {
+        return (SignResponse) userService.signUp(request);
     }
 
-    public SignInResponse signInUser(SignInRequest request) {
-        return userService.signIn(request);
+    public SignResponse signInUser(SignInRequest request) {
+        return (SignResponse) userService.signIn(request);
     }
     
 
