@@ -15,9 +15,9 @@ import peoplegpt.domain.user.model.entity.User;
 import peoplegpt.domain.user.model.entity.UserRole;
 
 public class UserRepository {
-    private static final String USER_DATA_PATH = "main/resources/user_data.txt";
+    private static final String rootDir = System.getProperty("user.dir");
+    private static final String USER_DATA_PATH = rootDir + "/app/src/main/resources/user_data.txt";
     private static final Logger logger = LogManager.getLogger(UserRepository.class);
-    
 
     private List<User> users = parseUsersData();
 
@@ -58,14 +58,20 @@ public class UserRepository {
                 .findFirst()
                 .orElse(null);
     }
+
     public boolean isExistUserByEmail(String email) {
         return users.stream()
                 .anyMatch(user -> user.getEmail().equals(email));
     }
+
     public long generateUserId() {
         return users.stream()
                 .mapToLong(User::getUserId)
                 .max()
                 .orElse(0) + 1;
-    }    
+    }
+
+    public void add(User user) {
+        users.add(user);
+    }
 }
