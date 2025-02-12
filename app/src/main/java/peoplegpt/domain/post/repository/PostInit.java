@@ -1,4 +1,4 @@
-package main.java.peoplegpt.domain.post.repository;
+package peoplegpt.domain.post.repository;
 
 public class PostInit {
     

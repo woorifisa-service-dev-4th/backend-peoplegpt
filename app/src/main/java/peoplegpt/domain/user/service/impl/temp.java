@@ -1,6 +1,6 @@
-package main.java.peoplegpt.domain.user.service.impl;
-import main.java.peoplegpt.domain.user.service.UserService;
+// package peoplegpt.domain.user.service.impl;
+// import peoplegpt.domain.user.service.UserService;
 
-public class temp implements UserService {
+// public class temp implements UserService {
     
-}
+// }

@@ -1,4 +1,4 @@
-package main.java.peoplegpt.domain.post.model;
+package peoplegpt.domain.post.model.entity;
 
 public class Post {
     
