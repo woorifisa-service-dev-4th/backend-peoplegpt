@@ -62,4 +62,11 @@ jar {
             'Main-Class': 'peoplegpt.App'
         )
     }
+    from {
+        configurations.runtimeClasspath.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+    // 이 부분 추가
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE    
 }

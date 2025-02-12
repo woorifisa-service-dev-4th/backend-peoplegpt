@@ -1,21 +1,47 @@
 package peoplegpt.domain.post.model.entity;
 
+import java.time.LocalDateTime;
+
 import peoplegpt.domain.global.model.entity.ClassFilter;
 import peoplegpt.domain.global.model.entity.DataStatus;
 
-import java.time.LocalDateTime;
-
 public class Post {
-    private long postId;
-    private long userId;
+    private final long postId;
+    private final long userId;
     private String title;
     private String content;
-    private Category category;
+    private final Category category;
     private ClassFilter filter;
     private Tag tag;
     private DataStatus status;
-    private LocalDateTime createdAt;
-    public Post(int postId, long userId, String title, String content, Category category, ClassFilter filter, Tag tag, DataStatus status, LocalDateTime createdAt) {
+    private final LocalDateTime createdAt;
+
+    // Database init QNA 게시물 사용
+    public Post(long postId, long userId, String title, String content, Category category, ClassFilter filter, Tag tag, DataStatus status, LocalDateTime createdAt) {
+        this.postId = postId;
+        this.userId = userId;
+        this.title = title;
+        this.content = content;
+        this.category = category;
+        this.filter = filter;
+        this.tag = tag;
+        this.status = status;
+        this.createdAt = createdAt;
+    }
+
+    // Database init Codeshare, Daily 게시물 사용
+    public Post(long postId, long userId, String title, String content, Category category, DataStatus status, LocalDateTime createdAt) {
+        this.postId = postId;
+        this.userId = userId;
+        this.title = title;
+        this.content = content;
+        this.category = category;
+        this.status = status;
+        this.createdAt = createdAt;
+    }    
+
+    // QNA 게시물 작성시 사용
+    public Post(long postId, long userId, String title, String content, Category category, ClassFilter filter, Tag tag) {
         this.postId = postId;
         this.userId = userId;
         this.title = title;
@@ -27,14 +53,15 @@ public class Post {
         this.createdAt = LocalDateTime.now();
     }
 
-    // 게시물 작성시 사용
-    public Post(long userId, String title, String content, Category category, ClassFilter filter, Tag tag) {
+    // Codeshare, Daily 게시물 작성시 사용
+    public Post(long postId, long userId, String title, String content, Category category) {
+        this.postId = postId;
         this.userId = userId;
         this.title = title;
         this.content = content;
         this.category = category;
-        this.filter = filter;
-        this.tag = tag;
+        this.status = DataStatus.ACTIVE;
+        this.createdAt = LocalDateTime.now();
     }
 
     public long getPostId() {
@@ -71,5 +98,33 @@ public class Post {
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
+    }
+
+    public void updatePost(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
+
+    public void updatePost(String title, String content, ClassFilter filter) {
+        this.title = title;
+        this.content = content;
+        this.filter = filter;
+    }
+
+    public void updatePost(String title, String content, Tag tag) {
+        this.title = title;
+        this.content = content;
+        this.tag = tag;
+    }
+
+    public void updatePost(String title, String content, ClassFilter filter, Tag tag) {
+        this.title = title;
+        this.content = content;
+        this.filter = filter;
+        this.tag = tag;
+    }
+
+    public void deletePost() {
+        this.status = DataStatus.INACTIVE;
     }
 }
