@@ -1,12 +1,16 @@
 package peoplegpt.domain.user.service;
 
-import peoplegpt.domain.user.model.entity.User;
+import peoplegpt.domain.user.model.dto.request.SignInRequest;
+import peoplegpt.domain.user.model.dto.request.SignUpRequest;
+import peoplegpt.domain.user.model.dto.response.SignInResponse;
+import peoplegpt.domain.user.model.dto.response.SignUpResponse;
+import peoplegpt.domain.user.model.dto.response.UserResponse;
 
 public interface UserService {
-    public void createUser(User user);
+    public SignInResponse signIn(SignInRequest request);
+    
+    public SignUpResponse signUp(SignUpRequest request);
 
-    public User getUser(String userId);
-
-    public boolean login(String userId, String password);
+    public UserResponse getUser(String userId);
 
 }
