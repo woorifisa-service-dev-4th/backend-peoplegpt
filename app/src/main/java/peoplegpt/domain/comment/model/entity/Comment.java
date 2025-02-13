@@ -5,24 +5,16 @@ import java.time.LocalDateTime;
 import peoplegpt.domain.global.model.entity.DataStatus;
 
 public class Comment {
-    private int id;
-    private int postId;
-    private long userId;
+    private long commentId;
+    private final long postId;
+    private final long userId;
     private String content;
     private DataStatus status;
-    private LocalDateTime createdAt;
+    private final LocalDateTime createdAt;
 
-    
-    public Comment(int postId, long userId, String content){
-        this.postId=postId;
-        this.userId=userId;
-        this.content=content;
-        this.status=DataStatus.ACTIVE;
-        this.createdAt=LocalDateTime.now();
-    }
-    
-    public Comment(int id, int postId, long userId, String content, LocalDateTime createdAt, DataStatus status){
-        this.id=id;
+    // Database Comment
+    public Comment(long commentId, long postId, long userId, String content, LocalDateTime createdAt, DataStatus status){
+        this.commentId=commentId;
         this.postId=postId;
         this.userId=userId;
         this.content=content;
@@ -30,11 +22,21 @@ public class Comment {
         this.createdAt=createdAt;
     }
 
-    public int getCommentId(){
-        return id;
+    // Create Comment
+    public Comment(long commentId, long postId, long userId, String content){
+        this.commentId=commentId;
+        this.postId=postId;
+        this.userId=userId;
+        this.content=content;
+        this.status=DataStatus.ACTIVE;
+        this.createdAt=LocalDateTime.now();
     }
 
-    public int getPostId(){
+    public long getCommentId(){
+        return commentId;
+    }
+
+    public long getPostId(){
         return postId;
     }
 

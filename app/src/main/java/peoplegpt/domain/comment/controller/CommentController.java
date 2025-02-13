@@ -1,13 +1,13 @@
 package peoplegpt.domain.comment.controller;
 
 import peoplegpt.domain.comment.model.dto.request.CreateCommentRequest;
-import peoplegpt.domain.comment.model.dto.request.DeleteRequest;
-import peoplegpt.domain.comment.model.dto.request.ShowListRequest;
-import peoplegpt.domain.comment.model.dto.request.UpdateRequest;
-import peoplegpt.domain.comment.model.dto.response.CommentResponse;
-import peoplegpt.domain.comment.model.dto.response.DeleteResponse;
-import peoplegpt.domain.comment.model.dto.response.ShowListResponse;
-import peoplegpt.domain.comment.model.dto.response.UpdateResponse;
+import peoplegpt.domain.comment.model.dto.request.DeleteCommentRequest;
+import peoplegpt.domain.comment.model.dto.request.GetCommentListRequest;
+import peoplegpt.domain.comment.model.dto.request.UpdateCommentRequest;
+import peoplegpt.domain.comment.model.dto.response.CreateCommentResponse;
+import peoplegpt.domain.comment.model.dto.response.DeleteCommentResponse;
+import peoplegpt.domain.comment.model.dto.response.GetCommentListResponse;
+import peoplegpt.domain.comment.model.dto.response.UpdateCommentResponse;
 import peoplegpt.domain.comment.service.CommentService;
 
 public class CommentController {
@@ -17,19 +17,19 @@ public class CommentController {
         this.commentService=commentService;
     }
 
-    public ShowListResponse showCommentList(ShowListRequest request){
-        return commentService.showCommentList(request);
+    public GetCommentListResponse getCommentList(GetCommentListRequest request){
+        return commentService.getCommentList(request);
     }
 
-    public CommentResponse createComment(CreateCommentRequest request){
+    public CreateCommentResponse createComment(CreateCommentRequest request){
         return commentService.createComment(request);
     }
 
-    public UpdateResponse updateComment(UpdateRequest request){
+    public UpdateCommentResponse updateComment(UpdateCommentRequest request){
         return commentService.updateComment(request);
     }
 
-    public DeleteResponse deleteComment(DeleteRequest request){
+    public DeleteCommentResponse deleteComment(DeleteCommentRequest request){
         return commentService.deleteComment(request);
     }
 }

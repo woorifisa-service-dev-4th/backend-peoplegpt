@@ -3,18 +3,23 @@ package peoplegpt.console;
 import java.util.List;
 import java.util.Scanner;
 
-import peoplegpt.domain.post.PostFactory;
+import peoplegpt.domain.comment.CommentContainer;
+import peoplegpt.domain.comment.controller.CommentController;
+import peoplegpt.domain.comment.model.dto.request.CreateCommentRequest;
+import peoplegpt.domain.comment.model.dto.request.GetCommentListRequest;
+import peoplegpt.domain.comment.model.dto.response.CreateCommentResponse;
+import peoplegpt.domain.comment.model.dto.response.GetCommentListResponse;
+import static peoplegpt.domain.global.model.entity.DataStatus.ACTIVE;
+import peoplegpt.domain.post.PostContainer;
 import peoplegpt.domain.post.controller.PostController;
 import peoplegpt.domain.post.model.dto.response.PostDetailResponse;
 import peoplegpt.domain.post.model.dto.response.PostListResponse;
 import peoplegpt.domain.post.model.entity.Post;
-import peoplegpt.domain.user.UserFactory;
+import peoplegpt.domain.user.UserContainer;
 import peoplegpt.domain.user.controller.UserController;
 import peoplegpt.domain.user.model.dto.request.SignInRequest;
 import peoplegpt.domain.user.model.dto.request.SignUpRequest;
 import peoplegpt.domain.user.model.dto.response.SignResponse;
-
-import static peoplegpt.domain.global.model.entity.DataStatus.ACTIVE;
 
 public class GPTConsole {
 
@@ -26,10 +31,12 @@ public class GPTConsole {
     };
 
     private static Scanner scanner = new Scanner(System.in);
-    private static UserFactory userFactory = new UserFactory();
-    private static PostFactory postFactory = new PostFactory();
-    private static final UserController userController = userFactory.getUserController();
-    private static final PostController postController = postFactory.getPostController();
+    private static UserContainer userContainer = new UserContainer();
+    private static PostContainer postContainer = new PostContainer();
+    private static CommentContainer commentContainer = new CommentContainer();
+    private static final UserController userController = userContainer.getUserController();
+    private static final PostController postController = postContainer.getPostController();
+    private static final CommentController commentController = commentContainer.getCommentController();
     
     private static void printHello() {
         System.out.println("==============================================================");
@@ -69,10 +76,8 @@ public class GPTConsole {
 
             printHello();
 
-            // systemOn = indexPage();
-            // systemOn = postPage();
-            // systemOn = mainPage();
-            systemOn = postDetailPage();
+            systemOn = indexPage();
+            systemOn = mainPage();
         }
     }
 
@@ -144,8 +149,8 @@ public class GPTConsole {
         }
     }
 
-    private static boolean postPage() {
-        PostListResponse response = postController.displayPostsByCategory("QNA");
+    private static boolean postPage(String category) {
+        PostListResponse response = postController.displayPostsByCategory(category);
         List<Post> posts = response.getPosts();
 
         for(int i = 0; i < posts.size(); i++) {
@@ -154,12 +159,54 @@ public class GPTConsole {
             System.out.println(post.getContent());
             System.out.println(post.getCreatedAt());
         }
-
         return false;
-
     }
 
-    private static boolean postDetailPage() {
+    private static boolean commentPage(long postId) {
+        boolean systemOn = true;
+
+        while(systemOn) {
+            postDetailPage();   
+            System.out.println("1. 댓글 조회");
+            System.out.println("2. 댓글 작성");
+            System.out.println("3. 댓글 수정");
+            System.out.println("4. 댓글 삭제");
+            System.out.println("5. 종료");
+
+            try {
+                int selected = Integer.parseInt(scanner.nextLine());
+                switch(selected) {
+                    case 1 -> {
+                        GetCommentListRequest request = new GetCommentListRequest(postId);
+                        GetCommentListResponse response = commentController.getCommentList(request);
+                        response.getComments().forEach(comment -> {
+                            System.out.println(comment.getContent());
+                        });
+                    }
+                    case 2 -> {
+                        CreateCommentRequest request = new CreateCommentRequest(1, (int)postId, "댓글 내용");
+                        commentController.createComment(request);
+                        CreateCommentResponse response = commentController.createComment(request);
+                        if(response.getCommentId() != -1) {
+                            System.out.println("댓글이 생성되었습니다.");
+                        } else {
+                            System.out.println("댓글 생성에 실패했습니다.");
+                        }
+
+                    }
+                    case 5 -> {
+                        systemOn = false;
+                    }
+                    default -> System.out.println("잘못된 입력입니다. 다시 입력해주세요.");
+                }
+            } catch(NumberFormatException e) {
+                System.out.println("잘못된 입력입니다. 다시 입력해주세요.");
+            }
+        }
+        return false;
+    }
+
+    private static void postDetailPage() {
         PostDetailResponse response = postController.displayPostByPostId(1);
 
         if (response.getStatus() == ACTIVE) {
@@ -171,7 +218,6 @@ public class GPTConsole {
             System.out.println(response.getFilter());
             System.out.println(response.getTag());
         }
-        return false;
     }
 
     private static boolean  mainPage() {
@@ -185,19 +231,28 @@ public class GPTConsole {
             System.out.println("2. QnA 게시글 조회");
             System.out.println("3. CodeShare 게시글 조회");
             System.out.println("4. Daily Summary 게시글 조회");
-            System.out.println("5. QnA 게시글 댓글 확인(All)");
-            System.out.println("6. QnA 게시글 댓글 확인(AI)");
-            System.out.println("7. QnA 게시글 댓글 확인(SERVICE)");
-            System.out.println("8. QnA 게시글 댓글 확인(CLOUD)");
-            System.out.println("9. 게시글 작성");
-            System.out.println("10. 게시글 수정");
-            System.out.println("11. 게시글 삭제");
-            System.out.println("12. 종료");
+            System.out.println("5. QnA 게시글 댓글 확인");
+            System.out.println("6. 게시글 작성");
+            System.out.println("7. 게시글 수정");
+            System.out.println("8. 게시글 삭제");
+            System.out.println("9. 종료");
 
 
             try {
                 int selected = Integer.parseInt(scanner.nextLine());
                 switch(selected) {
+                    case 2 -> {
+                        systemOn = postPage("QNA");
+                    }
+                    case 3 -> {
+                        systemOn = postPage("CODESHARE");
+                    }
+                    case 4 -> {
+                        systemOn = postPage("DAILY");
+                    }
+                    case 5 -> {
+                        commentPage(1);
+                    }
                     case 9 -> systemOn = false;
                     default -> System.out.println("잘못된 입력입니다. 다시 입력해주세요.");
                 }
@@ -208,6 +263,4 @@ public class GPTConsole {
 
         return true;
     }
-
-
 }
