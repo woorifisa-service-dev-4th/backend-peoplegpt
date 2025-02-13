@@ -1,10 +1,10 @@
 package peoplegpt.domain.comment.model.dto.request;
 
-public class DeleteRequest {
+public class DeleteCommentRequest {
     private final int id;
     private final long userId;
 
-    public DeleteRequest(int id, long userId) {
+    public DeleteCommentRequest(int id, long userId) {
         this.id = id;
         this.userId = userId;
     }

@@ -12,13 +12,16 @@ import peoplegpt.domain.user.model.dto.response.UserResponse;
 import peoplegpt.domain.user.model.entity.User;
 import peoplegpt.domain.user.repository.UserRepository;
 import peoplegpt.domain.user.service.UserService;
+import peoplegpt.domain.user.util.UserPasswordSecurity;
 
 public class UserServiceImpl implements UserService {
 
     // 임시 데이터 베이스 역할
     private final UserRepository userRepository;
-    public UserServiceImpl(UserRepository userRepository) {
+    private final UserPasswordSecurity userPasswordSecurity;
+    public UserServiceImpl(UserRepository userRepository, UserPasswordSecurity userPasswordSecurity) {
         this.userRepository = userRepository;
+        this.userPasswordSecurity = userPasswordSecurity;
     }
 
     private static final Logger logger = LogManager.getLogger(UserServiceImpl.class);
@@ -60,6 +63,7 @@ public class UserServiceImpl implements UserService {
         String name = request.getName();
         String email = request.getEmail();
         String password = request.getPassword();
+        String encryptedPassword = userPasswordSecurity.encryptPassword(password);
         System.out.println(userId + " " + name + " " + email + " " + password);
 
         User user = new User(userId, email, password, name);
