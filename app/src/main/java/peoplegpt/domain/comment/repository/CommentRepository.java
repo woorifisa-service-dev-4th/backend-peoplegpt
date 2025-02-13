@@ -15,7 +15,8 @@ import peoplegpt.domain.comment.model.entity.Comment;
 import peoplegpt.domain.global.model.entity.DataStatus;
 
 public class CommentRepository {
-    private static final String COMMENT_DATA_PATH = "main/resourse/comment_data.txt";
+    private static final String rootDir = System.getProperty("user.dir");
+    private static final String COMMENT_DATA_PATH = rootDir + "/app/src/main/resources/comment_data.txt";
     private static final Logger logger = LogManager.getLogger(CommentRepository.class);
 
     private List<Comment> comments = parseCommentData();
@@ -33,10 +34,10 @@ public class CommentRepository {
                 String[] commentData = line.split(",");
                 long commentId = Long.parseLong(commentData[0]); 
                 long userId = Long.parseLong(commentData[1]);
-                int postId = Integer.parseInt(commentData[2]);
+                long postId = Integer.parseInt(commentData[2]);
                 String content = commentData[3];
-                LocalDateTime createdAt = LocalDateTime.parse(commentData[5]);
-                DataStatus status = DataStatus.valueOf(commentData[6]);
+                LocalDateTime createdAt = LocalDateTime.parse(commentData[4]);
+                DataStatus status = DataStatus.valueOf(commentData[5]);
                 
                 Comment comment = new Comment(commentId, postId, userId, content, createdAt, status);
                 result.add(comment);
