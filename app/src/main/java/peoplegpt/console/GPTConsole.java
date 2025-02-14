@@ -17,9 +17,11 @@ import peoplegpt.domain.post.model.dto.response.PostListResponse;
 import peoplegpt.domain.post.model.entity.Post;
 import peoplegpt.domain.user.UserContainer;
 import peoplegpt.domain.user.controller.UserController;
+import peoplegpt.domain.user.model.dto.request.GetUserRequest;
 import peoplegpt.domain.user.model.dto.request.SignInRequest;
 import peoplegpt.domain.user.model.dto.request.SignUpRequest;
 import peoplegpt.domain.user.model.dto.response.SignResponse;
+import peoplegpt.domain.user.model.dto.response.UserResponse;
 
 public class GPTConsole {
 
@@ -241,6 +243,15 @@ public class GPTConsole {
             try {
                 int selected = Integer.parseInt(scanner.nextLine());
                 switch(selected) {
+                    case 1 -> {
+                        GetUserRequest request = new GetUserRequest("chans");
+                        UserResponse response = userController.getUserInfo(request);
+                        System.out.println(response.getUserId());
+                        System.out.println(response.getName());
+                        System.out.println(response.getEmail());
+                        System.out.println(response.getRole());
+                        System.out.println(response.getCreatedAt());
+                    }
                     case 2 -> {
                         systemOn = postPage("QNA");
                     }
@@ -261,6 +272,6 @@ public class GPTConsole {
             }
         }
 
-        return true;
+        return false;
     }
 }
