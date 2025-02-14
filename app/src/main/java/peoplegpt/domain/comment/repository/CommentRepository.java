@@ -1,8 +1,9 @@
 package peoplegpt.domain.comment.repository;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +16,8 @@ import peoplegpt.domain.comment.model.entity.Comment;
 import peoplegpt.domain.global.model.entity.DataStatus;
 
 public class CommentRepository {
-    private static final String rootDir = System.getProperty("user.dir");
-    private static final String COMMENT_DATA_PATH = rootDir + "/app/src/main/resources/comment_data.txt";
     private static final Logger logger = LogManager.getLogger(CommentRepository.class);
+    private static final String COMMENT_DATA_FILE = "comment_data.txt";
 
     private List<Comment> comments = parseCommentData();
 
@@ -27,8 +27,16 @@ public class CommentRepository {
 
     private List<Comment> parseCommentData() {
         List<Comment> result = new ArrayList<>();
+        ClassLoader classLoader = getClass().getClassLoader();
 
-        try(BufferedReader br = new BufferedReader(new FileReader(COMMENT_DATA_PATH))) {
+        try (
+            InputStream inputStream = classLoader.getResourceAsStream(COMMENT_DATA_FILE);
+            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))
+        ) {
+            if (inputStream == null) {
+                throw new IOException("Resource file not found: " + COMMENT_DATA_FILE);
+            }            
+
             String line;
             while((line = br.readLine()) != null) {
                 String[] commentData = line.split(",");

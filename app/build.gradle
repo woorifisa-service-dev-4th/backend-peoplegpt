@@ -21,13 +21,22 @@ sourceSets {
             srcDirs = ["src/main/resources"]
         }
     }
+    test {
+        resources {
+            srcDirs = ["src/test/resources"]
+        }
+    }
 }
 
 dependencies {
     // Use JUnit Jupiter for testing.
     testImplementation libs.junit.jupiter
 
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    // junit
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params'
+
 
     // This dependency is used by the application.
     implementation libs.guava

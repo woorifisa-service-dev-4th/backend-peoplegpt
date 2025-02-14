@@ -2,7 +2,6 @@ package peoplegpt.domain.user.model.dto.response;
 
 import java.time.LocalDateTime;
 
-import peoplegpt.domain.global.model.entity.DataStatus;
 import peoplegpt.domain.user.model.entity.UserRole;
 
 public class UserResponse {
