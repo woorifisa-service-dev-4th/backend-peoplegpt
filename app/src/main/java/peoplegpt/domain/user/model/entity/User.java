@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import peoplegpt.domain.global.model.entity.DataStatus;
 
 public class User {
+
     private long userId;
     private final String email;
     private String password;

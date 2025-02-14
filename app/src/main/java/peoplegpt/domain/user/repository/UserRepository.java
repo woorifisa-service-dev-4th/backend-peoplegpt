@@ -16,9 +16,8 @@ import peoplegpt.domain.user.model.entity.UserRole;
 
 public class UserRepository {
     private static final String rootDir = System.getProperty("user.dir");
-    private static final String USER_DATA_PATH = rootDir + "/app/src/main/resources/user_data.txt";
+    private static final String USER_DATA_PATH = rootDir + "/src/main/resources/user_data.txt";
     private static final Logger logger = LogManager.getLogger(UserRepository.class);
-
     private List<User> users = parseUsersData();
 
     public List<User> getUsers() {
@@ -26,6 +25,7 @@ public class UserRepository {
     }
 
     private List<User> parseUsersData() {
+        System.out.println(USER_DATA_PATH);
         List<User> result = new ArrayList<>();
 
         // 파일에서 데이터를 읽어와서 User 객체로 변환 후 users에 추가
@@ -45,8 +45,9 @@ public class UserRepository {
                 result.add(user);
             }
         } catch (IOException e) {
+            logger.error(USER_DATA_PATH);
             logger.error("Failed to read user data file", e);
-            throw new RuntimeException("Failed to read user data file");
+            throw new RuntimeException("Failed to read user data file " + USER_DATA_PATH);
         }
 
         return result;
