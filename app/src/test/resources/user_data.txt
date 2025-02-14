@@ -1,0 +1,10 @@
+1,john@woorifisa.com,1234,John Doe,ADMIN,ACTIVE,2025-02-11T10:00:00
+2,alice@woorifisa.com,1234,Alice Williams,MENTOR,ACTIVE,2025-02-11T13:00:00
+3,laura@woorifisa.com,1234,Laura Anderson,MENTOR,ACTIVE,2025-02-11T19:00:00
+4,michael@woorifisa.com,1234,Michael Wilson,MENTOR,ACTIVE,2025-02-11T16:00:00
+5,jane@woorifisa.com,1234,Jane Smith,STUDENT,ACTIVE,2025-02-11T11:00:00
+6,bob@woorifisa.com,1234,Bob Jones,STUDENT,ACTIVE,2025-02-11T12:00:00
+7,charlie@woorifisa.com,1234,Charlie Brown,STUDENT,ACTIVE,2025-02-11T14:00:00
+8,emily@woorifisa.com,1234,Emily Johnson,STUDENT,ACTIVE,2025-02-11T15:00:00
+9,sarah@woorifisa.com,1234,Sarah Moore,STUDENT,ACTIVE,2025-02-11T17:00:00
+10,david@woorifisa.com,1234,David Taylor,STUDENT,ACTIVE,2025-02-11T18:00:00
