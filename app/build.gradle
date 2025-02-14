@@ -21,6 +21,11 @@ sourceSets {
             srcDirs = ["src/main/resources"]
         }
     }
+    test {
+        resources {
+            srcDirs = ["src/test/resources"]
+        }
+    }
 }
 
 dependencies {

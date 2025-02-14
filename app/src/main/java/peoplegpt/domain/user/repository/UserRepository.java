@@ -1,8 +1,9 @@
 package peoplegpt.domain.user.repository;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +16,9 @@ import peoplegpt.domain.user.model.entity.User;
 import peoplegpt.domain.user.model.entity.UserRole;
 
 public class UserRepository {
-    private static final String rootDir = System.getProperty("user.dir");
-    private static final String USER_DATA_PATH = rootDir + "/src/main/resources/user_data.txt";
     private static final Logger logger = LogManager.getLogger(UserRepository.class);
+    private static final String USER_DATA_FILE = "user_data.txt"; // 리소스 파일 이름
+
     private List<User> users = parseUsersData();
 
     public List<User> getUsers() {
@@ -25,13 +26,19 @@ public class UserRepository {
     }
 
     private List<User> parseUsersData() {
-        System.out.println(USER_DATA_PATH);
         List<User> result = new ArrayList<>();
+        ClassLoader classLoader = getClass().getClassLoader();
 
-        // 파일에서 데이터를 읽어와서 User 객체로 변환 후 users에 추가
-        try(BufferedReader br = new BufferedReader(new FileReader(USER_DATA_PATH))) {
+        try (
+            InputStream inputStream = classLoader.getResourceAsStream(USER_DATA_FILE);
+            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))
+        ) {
+            if (inputStream == null) {
+                throw new IOException("Resource file not found: " + USER_DATA_FILE);
+            }
+
             String line;
-            while((line = br.readLine()) != null) {
+            while ((line = br.readLine()) != null) {
                 String[] userData = line.split(",");
                 long userId = Long.parseLong(userData[0]);
                 String email = userData[1];
@@ -45,9 +52,8 @@ public class UserRepository {
                 result.add(user);
             }
         } catch (IOException e) {
-            logger.error(USER_DATA_PATH);
-            logger.error("Failed to read user data file", e);
-            throw new RuntimeException("Failed to read user data file " + USER_DATA_PATH);
+            logger.error("Failed to read user data file: " + USER_DATA_FILE, e);
+            throw new RuntimeException("Failed to read user data file: " + USER_DATA_FILE);
         }
 
         return result;
