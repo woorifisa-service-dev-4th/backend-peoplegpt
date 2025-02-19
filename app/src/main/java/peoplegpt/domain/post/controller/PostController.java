@@ -7,7 +7,6 @@ import peoplegpt.domain.post.repository.PostRepository;
 import peoplegpt.domain.post.service.PostService;
 import peoplegpt.domain.post.service.impl.PostServiceImpl;
 
-@RequiredArgsConstructor
 public class PostController {
 
     private final PostRepository postRepository = new PostRepository();

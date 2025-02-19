@@ -1,13 +1,13 @@
 package peoplegpt.domain.comment.model.dto.request;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+
+@Getter
+@Builder
+@AllArgsConstructor
 public class GetCommentListRequest {
     private final long postId;
 
-    public GetCommentListRequest(long postId) {
-        this.postId=postId;
-    }
-
-    public long getPostId() {
-        return postId;
-    }
 }

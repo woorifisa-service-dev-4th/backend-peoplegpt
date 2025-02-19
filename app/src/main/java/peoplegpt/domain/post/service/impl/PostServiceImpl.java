@@ -31,13 +31,28 @@ public class PostServiceImpl implements PostService {
             posts = postRepository.getPostsByCategory(cate);
 
         }
-        return new PostListResponse(posts);
+        PostListResponse response = PostListResponse.builder()
+                .posts(posts)
+                .build();
+
+        return response;
     }
 
     @Override
     public PostDetailResponse getPostByPostId(long postId) {
         Post post = postRepository.findPostByPostId(postId);
-        PostDetailResponse response = new PostDetailResponse(post.getPostId(),post.getUserId(), post.getTitle(), post.getContent(), post.getCategory(), post.getFilter(), post.getTag(), post.getStatus(), post.getCreatedAt());
+        PostDetailResponse response = PostDetailResponse.builder()
+                .postId(post.getPostId())
+                .userId(post.getUserId())
+                .title(post.getTitle())
+                .content(post.getContent())
+                .category(post.getCategory())
+                .filter(post.getFilter())
+                .tag(post.getTag())
+                .status(post.getStatus())
+                .createdAt(post.getCreatedAt())
+                .build();
+                
         return response;
     }
 }
