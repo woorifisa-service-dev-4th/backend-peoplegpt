@@ -1,16 +1,17 @@
 package peoplegpt.domain.post.controller;
 
+import lombok.RequiredArgsConstructor;
 import peoplegpt.domain.post.model.dto.response.PostDetailResponse;
 import peoplegpt.domain.post.model.dto.response.PostListResponse;
+import peoplegpt.domain.post.repository.PostRepository;
 import peoplegpt.domain.post.service.PostService;
+import peoplegpt.domain.post.service.impl.PostServiceImpl;
 
+@RequiredArgsConstructor
 public class PostController {
 
-    private final PostService postService;
-
-    public PostController(PostService postService) {
-        this.postService = postService;
-    }
+    private final PostRepository postRepository = new PostRepository();
+    private final PostService postService = new PostServiceImpl(postRepository);
 
     public PostListResponse displayPostsByCategory(String category) {
         PostListResponse response = postService.getPostsByCategory(category);

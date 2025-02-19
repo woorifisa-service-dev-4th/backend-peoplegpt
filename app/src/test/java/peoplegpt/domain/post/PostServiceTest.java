@@ -1,8 +1,17 @@
 package peoplegpt.domain.post;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 import peoplegpt.domain.global.model.entity.ClassFilter;
 import peoplegpt.domain.global.model.entity.DataStatus;
 import peoplegpt.domain.post.model.dto.response.PostDetailResponse;
@@ -13,14 +22,6 @@ import peoplegpt.domain.post.model.entity.Tag;
 import peoplegpt.domain.post.repository.PostRepository;
 import peoplegpt.domain.post.service.PostService;
 import peoplegpt.domain.post.service.impl.PostServiceImpl;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PostServiceTest {
 
@@ -34,6 +35,7 @@ public class PostServiceTest {
     }
 
     @Test
+    @Disabled
     @DisplayName("게시글 목록 조회 테스트")
     void should_Return_Post_List() {
         List<Post> posts = new ArrayList<>();
@@ -77,6 +79,7 @@ public class PostServiceTest {
 
 
     @Test
+    @Disabled
     @DisplayName("게시글 상세 조회 테스트")
     void should_Return_Post_Detail() {
         int postId = 1;

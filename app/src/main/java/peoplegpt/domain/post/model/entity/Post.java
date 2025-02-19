@@ -2,9 +2,17 @@ package peoplegpt.domain.post.model.entity;
 
 import java.time.LocalDateTime;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import peoplegpt.domain.global.model.entity.ClassFilter;
 import peoplegpt.domain.global.model.entity.DataStatus;
 
+@Getter
+@Builder
+@RequiredArgsConstructor
+@AllArgsConstructor
 public class Post {
     private final long postId;
     private final long userId;
@@ -15,19 +23,6 @@ public class Post {
     private Tag tag;
     private DataStatus status;
     private final LocalDateTime createdAt;
-
-    // Database init QNA 게시물 사용
-    public Post(long postId, long userId, String title, String content, Category category, ClassFilter filter, Tag tag, DataStatus status, LocalDateTime createdAt) {
-        this.postId = postId;
-        this.userId = userId;
-        this.title = title;
-        this.content = content;
-        this.category = category;
-        this.filter = filter;
-        this.tag = tag;
-        this.status = status;
-        this.createdAt = createdAt;
-    }
 
     // Database init Codeshare, Daily 게시물 사용
     public Post(long postId, long userId, String title, String content, Category category, DataStatus status, LocalDateTime createdAt) {
@@ -62,42 +57,6 @@ public class Post {
         this.category = category;
         this.status = DataStatus.ACTIVE;
         this.createdAt = LocalDateTime.now();
-    }
-
-    public long getPostId() {
-        return postId;
-    }
-
-    public long getUserId() {
-        return userId;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public ClassFilter getFilter() {
-        return filter;
-    }
-
-    public Tag getTag() {
-        return tag;
-    }
-
-    public DataStatus getStatus() {
-        return status;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
     }
 
     public void updatePost(String title, String content) {
