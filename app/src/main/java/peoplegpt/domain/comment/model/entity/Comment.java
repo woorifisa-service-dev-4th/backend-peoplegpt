@@ -2,8 +2,16 @@ package peoplegpt.domain.comment.model.entity;
 
 import java.time.LocalDateTime;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import peoplegpt.domain.global.model.entity.DataStatus;
 
+@Getter
+@Builder
+@AllArgsConstructor
+@RequiredArgsConstructor
 public class Comment {
     private long commentId;
     private final long postId;
@@ -30,30 +38,6 @@ public class Comment {
         this.content=content;
         this.status=DataStatus.ACTIVE;
         this.createdAt=LocalDateTime.now();
-    }
-
-    public long getCommentId(){
-        return commentId;
-    }
-
-    public long getPostId(){
-        return postId;
-    }
-
-    public long getUserId(){
-        return userId;
-    }
-
-    public String getContent(){
-        return content;
-    }
-
-    public DataStatus getStatus(){
-        return status;
-    }
-
-    public LocalDateTime getCreatedAt(){
-        return createdAt;
     }
 
     public void updateContent(String newContent) {

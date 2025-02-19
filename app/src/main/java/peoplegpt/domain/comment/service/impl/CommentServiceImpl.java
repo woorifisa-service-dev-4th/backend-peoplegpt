@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import lombok.RequiredArgsConstructor;
 import peoplegpt.domain.comment.model.dto.request.CreateCommentRequest;
 import peoplegpt.domain.comment.model.dto.request.DeleteCommentRequest;
 import peoplegpt.domain.comment.model.dto.request.GetCommentListRequest;
@@ -18,12 +19,10 @@ import peoplegpt.domain.comment.repository.CommentRepository;
 import peoplegpt.domain.comment.service.CommentService;
 import peoplegpt.domain.global.model.entity.DataStatus;
 
+@RequiredArgsConstructor
 public class CommentServiceImpl implements CommentService{
     
     private final CommentRepository commentRepository;
-    public CommentServiceImpl(CommentRepository commentRepository){
-        this.commentRepository=commentRepository;
-    }
 
     private static final Logger logger = LogManager.getLogger(CommentServiceImpl.class);
 
@@ -40,18 +39,25 @@ public class CommentServiceImpl implements CommentService{
         } else{
             logger.info(request.getPostId() + "번 게시글의 댓글 목록입니다.");
         }
-        return new GetCommentListResponse(postComments);
+
+        GetCommentListResponse response = GetCommentListResponse.builder()
+                .comments(postComments)
+                .build();
+        return response;
     }
 
     @Override
     //댓글 작성 댓글 내용 입력 받아서...
     public CreateCommentResponse createComment(CreateCommentRequest request) {
-        long postId = commentRepository.generateCommentId();
-        Comment comment = new Comment(postId, request.getUserId(), request.getPostId(), request.getContent());
+        long commentId = commentRepository.generateCommentId();
+        Comment comment = new Comment(commentId, request.getUserId(), request.getPostId(), request.getContent());
         commentRepository.addComment(comment);
         logger.info(comment.getCommentId() + "댓글이 생성되었습니다.");
         
-        return new CreateCommentResponse(comment.getCommentId());
+        CreateCommentResponse response = CreateCommentResponse.builder()
+                .commentId(comment.getCommentId())
+                .build();
+        return response;
     }
 
     @Override
@@ -61,44 +67,65 @@ public class CommentServiceImpl implements CommentService{
         Comment comment = commentRepository.findCommentByCommentId(request.getCommentId());
         if (comment == null) {
             logger.info("댓글이 존재하지 않습니다.");
-            return new UpdateCommentResponse(-1);
+            UpdateCommentResponse res = UpdateCommentResponse.builder()
+                    .commentId(-1)
+                    .build();
+            return res;
         }
 
         if (comment.getUserId() != request.getUserId()) {
             logger.info("작성자가 아니라 수정할 수 없습니다.");
-            return new UpdateCommentResponse(-1);
+            UpdateCommentResponse res = UpdateCommentResponse.builder()
+                    .commentId(-1)
+                    .build();
+            return res;
         }
 
         commentRepository.updateComment(comment);
 
         logger.info(request.getCommentId() + "댓글이 성공적으로 수정되었습니다.");
-        return new UpdateCommentResponse(request.getCommentId());
+        UpdateCommentResponse response = UpdateCommentResponse.builder()
+                .commentId(request.getCommentId())
+                .build();
+        return response;
     }
 
     @Override
     //댓글 삭제
     public DeleteCommentResponse deleteComment(DeleteCommentRequest request){
-        int id = request.getCommentId();
+        long commentId = request.getCommentId();
         long userId = request.getUserId();
 
-        Comment comment = commentRepository.findCommentByCommentId(id);
+        Comment comment = commentRepository.findCommentByCommentId(commentId);
         if (comment == null) {
             logger.info("댓글이 존재하지 않습니다.");
-            return new DeleteCommentResponse(-1);
+            DeleteCommentResponse res = DeleteCommentResponse.builder()
+                    .commentId(-1)
+                    .build();
+            return res;
         }
 
         if (comment.getUserId() != userId) {
             logger.info("작성자가 아니라 삭제할 수 없습니다.");
-            return new DeleteCommentResponse(-1);
+            DeleteCommentResponse res = DeleteCommentResponse.builder()
+                    .commentId(-1)
+                    .build();
+            return res;
         }
 
         if (comment.getStatus() == DataStatus.INACTIVE) {
             logger.info("잘못된 접근입니다.");
-            return new DeleteCommentResponse(-1);
+            DeleteCommentResponse res = DeleteCommentResponse.builder()
+                    .commentId(-1)
+                    .build();
+            return res;
         }
 
         comment.deleteComment();
         logger.info("댓글이 성공적으로 삭제되었습니다.");
-        return new DeleteCommentResponse(id);
+        DeleteCommentResponse response = DeleteCommentResponse.builder()
+                .commentId(commentId)
+                .build();
+        return response;
     }
 }

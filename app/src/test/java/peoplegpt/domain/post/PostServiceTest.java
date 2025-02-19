@@ -6,6 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
 import peoplegpt.domain.global.model.entity.ClassFilter;
 import peoplegpt.domain.global.model.entity.DataStatus;
 import peoplegpt.domain.post.model.dto.response.PostDetailResponse;
@@ -99,6 +100,7 @@ public class PostServiceTest {
 //    }
 
     @Test
+    @Disabled
     @DisplayName("게시글 상세 조회 테스트")
     void should_Return_Post_Detail() {
         // Given

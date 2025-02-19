@@ -2,8 +2,15 @@ package peoplegpt.domain.user.model.entity;
 
 import java.time.LocalDateTime;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import peoplegpt.domain.global.model.entity.DataStatus;
 
+@Getter
+@Builder
+@AllArgsConstructor
 public class User {
 
     private long userId;
@@ -14,7 +21,6 @@ public class User {
     private DataStatus status;
     private final LocalDateTime createdAt;
 
-    // STUDENT 등록 시 사용
     public User(long userId, String email, String password, String name) {
         this.userId = userId;
         this.email = email;
@@ -23,52 +29,6 @@ public class User {
         this.role = UserRole.STUDENT;
         this.status = DataStatus.ACTIVE;
         this.createdAt = LocalDateTime.now();
-    }
-
-    // ADMIN, MENTOR 등록 시 사용
-    public User(long userId, String email, String password, String name, UserRole role) {
-        this.userId = userId;
-        this.email = email;
-        this.password = password;
-        this.name = name;
-        this.role = role;
-        this.status = DataStatus.ACTIVE;
-        this.createdAt = LocalDateTime.now();
-    }
-
-    // Database에서 가져올 때 사용
-    public User(long userId, String email, String password, String name, UserRole role, DataStatus status, LocalDateTime createdAt) {
-        this.userId = userId;
-        this.email = email;
-        this.password = password;
-        this.name = name;
-        this.role = role;
-        this.status = status;
-        this.createdAt = createdAt;
-    }
-
-    public long getUserId() {
-        return userId;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public DataStatus getUserStatus() {
-        return status;
-    }
-
-    public UserRole getUserRole() {
-        return role;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
     }
 
     public boolean checkPassword(String password) {
