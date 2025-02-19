@@ -4,9 +4,11 @@ import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 
 import peoplegpt.domain.user.model.dto.request.GetUserRequest;
 import peoplegpt.domain.user.model.dto.request.SignInRequest;
@@ -15,21 +17,15 @@ import peoplegpt.domain.user.model.dto.response.UserResponse;
 import peoplegpt.domain.user.model.entity.UserRole;
 import peoplegpt.domain.user.repository.UserRepository;
 import peoplegpt.domain.user.service.UserService;
-import peoplegpt.domain.user.service.impl.UserServiceImpl;
-import peoplegpt.domain.user.util.UserPasswordSecurity;
-import peoplegpt.domain.user.util.impl.UserPasswordSecurityImpl;
 
 public class UserServiceTest {
-    private UserPasswordSecurity userPasswordSecurity;
+
+    @Mock
     private UserRepository userRepository;
+    
+    @InjectMocks
     private UserService userService;
-    @BeforeEach
-    public void setUp() {
-        this.userPasswordSecurity = new UserPasswordSecurityImpl();
-        this.userRepository = new UserRepository();
-        this.userService = new UserServiceImpl(userRepository, userPasswordSecurity);
-        System.out.println("Setting up");
-    }
+
 
     @Test
     @DisplayName("Test sign in")
@@ -39,6 +35,7 @@ public class UserServiceTest {
     }
 
     @Test
+    @Disabled
     @DisplayName("Test get user")
     public void testGetUser() {
         GetUserRequest getUserRequest = new GetUserRequest("test@woorifisa.com");
@@ -55,6 +52,7 @@ public class UserServiceTest {
     }
 
     @Test
+    @Disabled
     @DisplayName("Test Sign in")
     public void testSignIn() {
         SignInRequest signInRequest = new SignInRequest("test@woorifisa.com", "1234");

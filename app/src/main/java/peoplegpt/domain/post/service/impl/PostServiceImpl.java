@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import lombok.RequiredArgsConstructor;
 import peoplegpt.domain.post.model.dto.response.PostDetailResponse;
 import peoplegpt.domain.post.model.dto.response.PostListResponse;
 import peoplegpt.domain.post.model.entity.Category;
@@ -12,12 +13,10 @@ import peoplegpt.domain.post.model.entity.Post;
 import peoplegpt.domain.post.repository.PostRepository;
 import peoplegpt.domain.post.service.PostService;
 
+@RequiredArgsConstructor
 public class PostServiceImpl implements PostService {
 
     private final PostRepository postRepository;
-    public PostServiceImpl(PostRepository postRepository) {
-        this.postRepository = postRepository;
-    }
 
     private static final Logger logger = LogManager.getLogger(PostServiceImpl.class);
 
