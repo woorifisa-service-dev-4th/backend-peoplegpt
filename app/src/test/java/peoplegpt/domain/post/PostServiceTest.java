@@ -61,15 +61,17 @@ public class PostServiceTest {
             Post post = responsePosts.get(i);
             Post expected = posts.get(i);
 
-            assertEquals(expected.getPostId(), post.getPostId());
-            assertEquals(expected.getUserId(), post.getUserId());
-            assertEquals(expected.getTitle(), post.getTitle());
-            assertEquals(expected.getContent(), post.getContent());
-            assertEquals(expected.getCategory(), post.getCategory());
-            assertEquals(expected.getFilter(), post.getFilter());
-            assertEquals(expected.getTag(), post.getTag());
-            assertEquals(expected.getStatus(), post.getStatus());
-            assertEquals(expected.getCreatedAt(), post.getCreatedAt());
+            assertAll(
+                    () -> assertEquals(expected.getPostId(), post.getPostId()),
+                    () -> assertEquals(expected.getUserId(), post.getUserId()),
+                    () -> assertEquals(expected.getTitle(), post.getTitle()),
+                    () -> assertEquals(expected.getContent(), post.getContent()),
+                    () -> assertEquals(expected.getCategory(), post.getCategory()),
+                    () -> assertEquals(expected.getFilter(), post.getFilter()),
+                    () -> assertEquals(expected.getTag(), post.getTag()),
+                    () -> assertEquals(expected.getStatus(), post.getStatus()),
+                    () -> assertEquals(expected.getCreatedAt(), post.getCreatedAt())
+            );
         }
     }
 

@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8afd103d-830b-47ed-b140-e825d1d90115" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -32,6 +31,11 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="JavaAutoRunManager">
+    <enabled-run-configurations>
+      <run-configuration type="GradleRunConfiguration" name="PostServiceTest.should_Return_Post_List" />
+    </enabled-run-configurations>
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -53,14 +57,14 @@
   &quot;keyToString&quot;: {
     &quot;Gradle.PostServiceTest.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.PostServiceTest.should_Return_Post_Detail.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.PostServiceTest.should_Return_Post_List.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PostServiceTest.should_Return_Post_List.executor&quot;: &quot;Debug&quot;,
     &quot;Gradle.PostTest.should_Return_Post_List.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.UserServiceTest.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.backend-peoplegpt:app [:app:App.main()].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.backend-peoplegpt:app [:app:PostController.main()].executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;post/test&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/iseoyeon/Desktop/woori-workspace/backend_peoplegpt&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -227,7 +231,9 @@
       <workItem from="1739350340221" duration="8364000" />
       <workItem from="1739502330787" duration="4422000" />
       <workItem from="1739510998060" duration="117000" />
-      <workItem from="1739511134615" duration="2784000" />
+      <workItem from="1739511134615" duration="5273000" />
+      <workItem from="1739863157281" duration="244000" />
+      <workItem from="1739923341897" duration="1000" />
     </task>
     <servers />
   </component>
