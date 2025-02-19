@@ -1,17 +1,17 @@
 package peoplegpt.domain.comment.model.dto.request;
 
 public class UpdateCommentRequest {
-    private final int id;
+    private final long id;
     private final long userId;
     private final String content;
 
-    public UpdateCommentRequest(int id, long userId, String content) {
+    public UpdateCommentRequest(long id, long userId, String content) {
         this.id = id;
         this.userId = userId;
         this.content = content;
     }
 
-    public int getCommentId() {
+    public long getCommentId() {
         return id;
     }
 

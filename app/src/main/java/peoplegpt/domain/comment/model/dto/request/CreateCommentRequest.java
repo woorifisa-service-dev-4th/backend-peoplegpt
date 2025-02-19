@@ -2,10 +2,10 @@ package peoplegpt.domain.comment.model.dto.request;
 
 public class CreateCommentRequest {
     private final long userId;
-    private final int postId;
+    private final long postId;
     private final String content;
 
-    public CreateCommentRequest(long userId, int postId, String content){
+    public CreateCommentRequest(long userId, long postId, String content){
         this.userId=userId;
         this.postId=postId;
         this.content=content;
@@ -15,7 +15,7 @@ public class CreateCommentRequest {
         return userId;
     }
 
-    public int getPostId() {
+    public long getPostId() {
         return postId;
     }
 
