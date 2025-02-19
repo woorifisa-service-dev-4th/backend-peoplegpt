@@ -46,8 +46,8 @@ public class CommentServiceImpl implements CommentService{
     @Override
     //댓글 작성 댓글 내용 입력 받아서...
     public CreateCommentResponse createComment(CreateCommentRequest request) {
-        long postId = commentRepository.generateCommentId();
-        Comment comment = new Comment(postId, request.getUserId(), request.getPostId(), request.getContent());
+        long commentId = commentRepository.generateCommentId();
+        Comment comment = new Comment(commentId, request.getUserId(), request.getPostId(), request.getContent());
         commentRepository.addComment(comment);
         logger.info(comment.getCommentId() + "댓글이 생성되었습니다.");
         
@@ -78,10 +78,10 @@ public class CommentServiceImpl implements CommentService{
     @Override
     //댓글 삭제
     public DeleteCommentResponse deleteComment(DeleteCommentRequest request){
-        int id = request.getCommentId();
+        long commentId = request.getCommentId();
         long userId = request.getUserId();
 
-        Comment comment = commentRepository.findCommentByCommentId(id);
+        Comment comment = commentRepository.findCommentByCommentId(commentId);
         if (comment == null) {
             logger.info("댓글이 존재하지 않습니다.");
             return new DeleteCommentResponse(-1);
@@ -99,6 +99,6 @@ public class CommentServiceImpl implements CommentService{
 
         comment.deleteComment();
         logger.info("댓글이 성공적으로 삭제되었습니다.");
-        return new DeleteCommentResponse(id);
+        return new DeleteCommentResponse(commentId);
     }
 }
