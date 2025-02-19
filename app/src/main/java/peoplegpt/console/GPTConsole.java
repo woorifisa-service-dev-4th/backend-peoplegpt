@@ -253,13 +253,13 @@ public class GPTConsole {
                         System.out.println(response.getCreatedAt());
                     }
                     case 2 -> {
-                        systemOn = postPage("QNA");
+                        postPage("QNA");
                     }
                     case 3 -> {
-                        systemOn = postPage("CODESHARE");
+                        postPage("CODESHARE");
                     }
                     case 4 -> {
-                        systemOn = postPage("DAILY");
+                        postPage("DAILY");
                     }
                     case 5 -> {
                         commentPage(1);

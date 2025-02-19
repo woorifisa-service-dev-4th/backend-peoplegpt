@@ -1,8 +1,9 @@
 package peoplegpt.domain.post.repository;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,15 +19,23 @@ import peoplegpt.domain.post.model.entity.Post;
 import peoplegpt.domain.post.model.entity.Tag;
 
 public class PostRepository {
-    private static final String rootDir = System.getProperty("user.dir");
-    private final String POST_FILE_PATH = rootDir + "/app/src/main/resources/post_data.txt";
     private static final Logger logger = LogManager.getLogger(PostRepository.class);
+    private final String POST_DATA_FILE = "post_data.txt";
 
     private List<Post> posts = parsePostData();
 
     private List<Post> parsePostData() {
         List<Post> result = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(POST_FILE_PATH))){
+        ClassLoader classLoader = getClass().getClassLoader();
+
+        try (
+            InputStream inputStream = classLoader.getResourceAsStream(POST_DATA_FILE);
+            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))
+        ) {
+            if (inputStream == null) {
+                throw new IOException("Resource file not found: " + POST_DATA_FILE);
+            }
+
             String line;
             while ((line = br.readLine()) != null) {
                 Post post;
