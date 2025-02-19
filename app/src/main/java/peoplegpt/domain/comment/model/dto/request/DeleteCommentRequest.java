@@ -1,19 +1,14 @@
 package peoplegpt.domain.comment.model.dto.request;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+
+@Getter
+@Builder
+@AllArgsConstructor
 public class DeleteCommentRequest {
-    private final long id;
+    private final long commentId;
     private final long userId;
 
-    public DeleteCommentRequest(long id, long userId) {
-        this.id = id;
-        this.userId = userId;
-    }
-
-    public long getCommentId() {
-        return id;
-    }
-
-    public long getUserId() {
-        return userId;
-    }
 }

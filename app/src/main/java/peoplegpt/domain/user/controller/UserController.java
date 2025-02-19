@@ -10,7 +10,6 @@ import peoplegpt.domain.user.repository.UserRepository;
 import peoplegpt.domain.user.service.UserService;
 import peoplegpt.domain.user.service.impl.UserServiceImpl;
 
-@RequiredArgsConstructor
 public class UserController {
     
     private final UserRepository userRepository = new UserRepository();
