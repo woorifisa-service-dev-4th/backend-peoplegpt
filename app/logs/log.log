@@ -114,3 +114,4 @@ java.io.FileNotFoundException: /Users/iseoyeon/Desktop/woori-workspace/backend_p
 2025-02-14 16:48:37 [Test worker] INFO  peoplegpt.domain.post.service.impl.PostServiceImpl - 게시물 목록을 조회합니다.
 2025-02-14 16:49:03 [Test worker] INFO  peoplegpt.domain.post.service.impl.PostServiceImpl - 게시물 목록을 조회합니다.
 2025-02-14 16:49:19 [Test worker] INFO  peoplegpt.domain.post.service.impl.PostServiceImpl - 게시물 목록을 조회합니다.
+2025-02-19 11:23:19 [Test worker] INFO  peoplegpt.domain.post.service.impl.PostServiceImpl - 게시물 목록을 조회합니다.
