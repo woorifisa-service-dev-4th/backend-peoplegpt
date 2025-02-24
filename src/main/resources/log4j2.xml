@@ -1,0 +1,24 @@
+<Configuration status="info" name="logging-config">
+    <Properties>
+        <!--  프로젝트 루트 디렉토리에서 logs/log.log 경로 설정  -->
+        <Property name="log-path">${sys:user.dir}/logs/log.log</Property>
+    </Properties>
+    <Appenders>
+        <!--  콘솔에 로그 출력  -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+
+        <!--  로그 파일에 출력  -->
+        <File name="File" fileName="${log-path}">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"/>
+        </File>
+    </Appenders>
+    <Loggers>
+        <!--  루트 로거  -->
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"/>
+        </Root>
+    </Loggers>
+</Configuration>
