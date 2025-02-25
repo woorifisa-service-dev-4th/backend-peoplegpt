@@ -1,30 +1,49 @@
 package com.peoplegpt.demo.domain.post.controller;
 
-import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+
 import com.peoplegpt.demo.domain.post.model.dto.response.PostDetailResponse;
 import com.peoplegpt.demo.domain.post.model.dto.response.PostListResponse;
-import com.peoplegpt.demo.domain.post.repository.PostRepository;
 import com.peoplegpt.demo.domain.post.service.PostService;
-import com.peoplegpt.demo.domain.post.service.impl.PostServiceImpl;
 
+import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.Tag;
+import io.swagger.v3.oas.annotations.Operation;
+
+@Tag(name = "Post", description = "게시물 관련 API")
+@RestController
+@RequestMapping("/post")
 public class PostController {
 
-    private final PostRepository postRepository = new PostRepository();
-    private final PostService postService = new PostServiceImpl(postRepository);
+    private final PostService postService;
 
-    public PostListResponse displayPostsByCategory(String category) {
-        PostListResponse response = postService.getPostsByCategory(category);
-        if (response.getPosts().isEmpty()) {
-            System.out.println("해당 카테고리의 게시물이 없습니다.");
-        } else {
-            System.out.println(response);
-        }
-
-        return response;
+    public PostController(PostService postService) {
+        this.postService = postService;
     }
 
-    public PostDetailResponse displayPostByPostId(long postId) {
-        PostDetailResponse response = postService.getPostByPostId(postId);
-        return response;
+    /**
+     * GET 카테고리별 게시물들 조회
+     * [GET] /post/category/{category}
+     * @param category
+     * @return PostListResponse
+     */
+    @Operation(summary = "카테고리별 게시물들 조회", description = "API호출 예제: /post/category/자유")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 404, message = "게시물 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    @GetMapping("/category/{category}")
+    public ResponseEntity<PostListResponse> displayPostsByCategory(String category) {
+        return postService.getPostsByCategory(category);
+    }
+
+    public ResponseEntity<PostDetailResponse> displayPostByPostId(long postId) {
+        return postService.getPostByPostId(postId);
     }
 }
