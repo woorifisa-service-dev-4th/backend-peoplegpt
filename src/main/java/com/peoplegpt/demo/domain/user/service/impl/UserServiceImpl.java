@@ -2,13 +2,16 @@ package com.peoplegpt.demo.domain.user.service.impl;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.peoplegpt.demo.domain.global.jwt.JwtProvider;
 import com.peoplegpt.demo.domain.global.model.entity.DataStatus;
 import com.peoplegpt.demo.domain.user.model.dto.request.GetUserRequest;
 import com.peoplegpt.demo.domain.user.model.dto.request.SignInRequest;
 import com.peoplegpt.demo.domain.user.model.dto.request.SignUpRequest;
-import com.peoplegpt.demo.domain.user.model.dto.response.SignResponse;
+import com.peoplegpt.demo.domain.user.model.dto.response.SignInResponse;
+import com.peoplegpt.demo.domain.user.model.dto.response.SignUpResponse;
 import com.peoplegpt.demo.domain.user.model.dto.response.UserResponse;
 import com.peoplegpt.demo.domain.user.model.entity.User;
 import com.peoplegpt.demo.domain.user.repository.UserRepository;
@@ -19,84 +22,97 @@ public class UserServiceImpl implements UserService {
 
     // 임시 데이터 베이스 역할
     private final UserRepository userRepository;
+    private final JwtProvider jwtProvider;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, JwtProvider jwtProvider) {
         this.userRepository = userRepository;
+        this.jwtProvider = jwtProvider;
     }
 
     private static final Logger logger = LogManager.getLogger(UserServiceImpl.class);
 
     @Override
-    public SignResponse signIn(SignInRequest request) {
+    public ResponseEntity<SignInResponse> signIn(SignInRequest request) {
         User user = userRepository.findUserByEmail(request.getEmail());
+        logger.info(request.getEmail(), ": User Login Request");
         if (user == null || user.getStatus() == DataStatus.INACTIVE) {
-            logger.info(request.getEmail(), "User not found");
-            System.out.println("User not found");
-            return SignResponse.builder()
-                    .email(null)
-                    .build();
+            return ResponseEntity.status(404)
+                    .body(SignInResponse.builder()
+                        .userId(-1)
+                        .token(null)
+                        .role(null)
+                        .build());
         }
 
-        String password = request.getPassword();
-        boolean check = user.checkPassword(password);
-
-        if (!check) {
+        if (!user.checkPassword(request.getPassword())) {
             logger.info(request.getEmail(), "Password not matched");
-            System.out.println("Password not matched");
-            return SignResponse.builder()
-                    .email(null)
-                    .build();
+            return ResponseEntity.status(401)
+                    .body(SignInResponse.builder()
+                        .userId(-1)
+                        .token(null)
+                        .role(null)
+                        .build());
         }
 
-        SignResponse response = SignResponse.builder()
-                .email(user.getEmail())
-                .build();
-        System.out.println("Sign in success");
-        return response;
+        String token = jwtProvider.generateToken(user);
+        return ResponseEntity.ok()
+                .body(SignInResponse.builder()
+                    .userId(user.getUserId())
+                    .token(token)
+                    .role(user.getRole())
+                    .build());
     }
 
     @Override
-    public SignResponse signUp(SignUpRequest request) {
+    public ResponseEntity<SignUpResponse> signUp(SignUpRequest request) {
         boolean isExist = userRepository.isExistUserByEmail(request.getEmail());
 
         if (isExist) {
             logger.info(request.getEmail(), "User already exists");
             System.out.println("User already exists");
-            return SignResponse.builder()
-                    .email(null)
-                    .build();
+            return ResponseEntity.status(409)
+                    .body(SignUpResponse.builder()
+                        .email(null)
+                        .build());
         }
         
-        String name = request.getName();
-        String email = request.getEmail();
-        String password = request.getPassword();
-        System.out.println(name + " " + email + " " + password);
+        try {
+            User user = User.builder()
+                    .email(request.getEmail())
+                    .password(request.getPassword())
+                    .name(request.getName())
+                    .build();
+            userRepository.add(user);
+        } catch (Exception e) {
+            return ResponseEntity.status(500)
+                    .body(SignUpResponse.builder()
+                        .email(e.getMessage())
+                        .build());
+        }
 
-        User user = User.builder()
-                .email(email)
-                .password(password)
-                .name(name)
-                .build();
-
-        userRepository.add(user);
-
-        SignResponse response = SignResponse.builder()
-                .email(user.getEmail())
-                .build();
-        return response;
+        return ResponseEntity.ok()
+                .body(SignUpResponse.builder()
+                    .email(request.getEmail())
+                    .build());
     }
 
     @Override
-    public UserResponse getUser(GetUserRequest request) {
+    public ResponseEntity<UserResponse> getUser(GetUserRequest request) {
         User user = userRepository.findUserByUserId(request.getUserId());
-        UserResponse response = UserResponse.builder()
-                .userId(user.getUserId())
-                .email(user.getEmail())
-                .name(user.getName())
-                .role(user.getRole())
-                .createdAt(user.getCreatedAt())
-                .build();
-        return response;
+
+        if(user == null || user.getStatus() == DataStatus.INACTIVE) {
+            return ResponseEntity.status(404)
+                    .body(null);
+        }
+        
+        return ResponseEntity.ok()
+                .body(UserResponse.builder()
+                    .userId(user.getUserId())
+                    .email(user.getEmail())
+                    .name(user.getName())
+                    .role(user.getRole())
+                    .createdAt(user.getCreatedAt())
+                    .build());
     }
     
 }
