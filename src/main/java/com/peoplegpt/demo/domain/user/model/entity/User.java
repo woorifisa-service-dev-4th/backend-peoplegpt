@@ -2,11 +2,11 @@ package com.peoplegpt.demo.domain.user.model.entity;
 
 import java.time.LocalDateTime;
 
+import com.peoplegpt.demo.domain.global.model.entity.DataStatus;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import com.peoplegpt.demo.domain.global.model.entity.DataStatus;
 
 @Getter
 @Builder
@@ -32,6 +32,8 @@ public class User {
     }
 
     public boolean checkPassword(String password) {
+        System.out.println("password: " + password);
+        System.out.println("this.password: " + this.password);
         return this.password.equals(password);
     }
 

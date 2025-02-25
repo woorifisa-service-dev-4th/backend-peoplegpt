@@ -1,23 +1,26 @@
 package com.peoplegpt.demo.domain.user.controller;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.peoplegpt.demo.domain.user.model.dto.request.GetUserRequest;
 import com.peoplegpt.demo.domain.user.model.dto.request.SignInRequest;
 import com.peoplegpt.demo.domain.user.model.dto.request.SignUpRequest;
-import com.peoplegpt.demo.domain.user.model.dto.response.SignResponse;
+import com.peoplegpt.demo.domain.user.model.dto.response.SignInResponse;
+import com.peoplegpt.demo.domain.user.model.dto.response.SignUpResponse;
 import com.peoplegpt.demo.domain.user.model.dto.response.UserResponse;
 import com.peoplegpt.demo.domain.user.service.UserService;
 
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @Tag(name = "User", description = "유저 관련 API")
@@ -26,6 +29,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public class UserController {
     
     private final UserService userService;
+    private final Logger logger = LogManager.getLogger(UserController.class);
 
     public UserController(UserService userService) {
         this.userService = userService;
@@ -47,11 +51,10 @@ public class UserController {
     public ResponseEntity<UserResponse> getUserInfo(
         @PathVariable("userId") long userId
     ) {
-        GetUserRequest reqeust = GetUserRequest.builder()
+        return userService.getUser(GetUserRequest.builder()
             .userId(userId)
-            .build();
-        return ResponseEntity.ok()
-            .body((userService.getUser(reqeust)));
+            .build()
+        );
     }
     
     
@@ -68,11 +71,10 @@ public class UserController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     @PostMapping("/signUp")
-    public ResponseEntity<SignResponse> signUpUser(
+    public ResponseEntity<SignUpResponse> signUpUser(
         @RequestBody SignUpRequest request
     ) {
-        return ResponseEntity.ok()
-            .body((userService.signUp(request)));
+        return userService.signUp(request);
     }
 
     /**
@@ -84,15 +86,15 @@ public class UserController {
     @Operation(summary = "로그인", description = "로그인 API: /user/signIn")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "정보 불일치"),
             @ApiResponse(code = 404, message = "유저 정보 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
     @PostMapping("/signIn")
-    public ResponseEntity<SignResponse> signInUser(
+    public ResponseEntity<SignInResponse> signInUser(
         @RequestBody SignInRequest request
     ) {
-        return ResponseEntity.ok()
-            .body(userService.signIn(request));
+        return userService.signIn(request);
     }
 
 }
