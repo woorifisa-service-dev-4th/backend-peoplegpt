@@ -9,5 +9,4 @@ import lombok.Getter;
 @AllArgsConstructor
 public class CreateCommentResponse {
     private final long commentId;
-
 }

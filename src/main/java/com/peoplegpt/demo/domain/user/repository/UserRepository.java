@@ -1,15 +1,5 @@
 package com.peoplegpt.demo.domain.user.repository;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.sql.DataSource;
 
 import org.apache.logging.log4j.LogManager;
@@ -32,6 +22,18 @@ public class UserRepository {
     @Autowired
     public void setDataSource(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
+
+    @SuppressWarnings("deprecation")
+    public boolean existsById(Long userId) {
+        String sql = "SELECT COUNT(*) FROM User WHERE user_id = ? AND status = 'ACTIVE'";
+        try {
+            Integer count = jdbcTemplate.queryForObject(sql, new Object[]{userId}, Integer.class);
+            return count != null && count > 0;
+        } catch (Exception e) {
+            logger.error("Failed to check if user exists", e);
+            return false;
+        }
     }
 
     @SuppressWarnings("deprecation")
@@ -88,6 +90,17 @@ public class UserRepository {
         } catch (EmptyResultDataAccessException e) {
             logger.error("Failed to check user existence by email", e);
             return false;
+        }
+    }
+
+    @SuppressWarnings("deprecation")
+    public UserRole getUserRole(long userId) {
+        String sql = "SELECT role FROM User WHERE user_id = ?";
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[] { userId }, UserRole.class);
+        } catch (EmptyResultDataAccessException e) {
+            logger.error("Failed to get user role", e);
+            return null;
         }
     }
 
