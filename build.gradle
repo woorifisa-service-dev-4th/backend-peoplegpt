@@ -30,10 +30,14 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    
     // lombok
     compileOnly 'org.projectlombok:lombok:1.18.24'
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
+    testCompileOnly 'org.projectlombok:lombok:1.18.24'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
+    
 
     // Spring Security
     // implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -51,7 +55,8 @@ dependencies {
 
     // Swagger
     implementation 'io.springfox:springfox-boot-starter:3.0.0'
-    // implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+    implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+    annotationProcessor 'io.swagger.core.v3:swagger-annotations:2.1.10'
 
     // log4j
     implementation 'org.apache.logging.log4j:log4j-api:2.14.1'
@@ -62,6 +67,8 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
     implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
     implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+
+
 }
 
 tasks.named('test') {
