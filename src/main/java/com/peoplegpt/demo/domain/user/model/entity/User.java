@@ -2,11 +2,11 @@ package com.peoplegpt.demo.domain.user.model.entity;
 
 import java.time.LocalDateTime;
 
+import com.peoplegpt.demo.domain.global.model.entity.DataStatus;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import com.peoplegpt.demo.domain.global.model.entity.DataStatus;
 
 @Getter
 @Builder
