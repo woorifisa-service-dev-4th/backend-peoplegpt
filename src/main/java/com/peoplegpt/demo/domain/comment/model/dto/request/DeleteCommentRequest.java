@@ -10,5 +10,4 @@ import lombok.Getter;
 public class DeleteCommentRequest {
     private final long commentId;
     private final long userId;
-
 }
