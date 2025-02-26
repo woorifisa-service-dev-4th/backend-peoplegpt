@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.peoplegpt.demo.domain.global.jwt.JwtProvider;
 import com.peoplegpt.demo.domain.global.model.entity.DataStatus;
@@ -20,7 +21,6 @@ import com.peoplegpt.demo.domain.user.service.UserService;
 @Service
 public class UserServiceImpl implements UserService {
 
-    // 임시 데이터 베이스 역할
     private final UserRepository userRepository;
     private final JwtProvider jwtProvider;
 
@@ -32,9 +32,9 @@ public class UserServiceImpl implements UserService {
     private static final Logger logger = LogManager.getLogger(UserServiceImpl.class);
 
     @Override
+    @Transactional
     public ResponseEntity<SignInResponse> signIn(SignInRequest request) {
         User user = userRepository.findUserByEmail(request.getEmail());
-        logger.info(request.getEmail(), ": User Login Request");
         if (user == null || user.getStatus() == DataStatus.INACTIVE) {
             return ResponseEntity.status(404)
                     .body(SignInResponse.builder()
@@ -64,6 +64,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public ResponseEntity<SignUpResponse> signUp(SignUpRequest request) {
         boolean isExist = userRepository.isExistUserByEmail(request.getEmail());
 
