@@ -46,7 +46,7 @@ public class PostController {
 
     /**
      * GET 카테고리별 게시물들 조회
-     * [GET] /post?category={}filter{}
+     * [GET] /post?category={}&filter{}
      * @param category
      * @return ResponseEntity<GlobalApiResponse<List<PostDto>>>
      */
@@ -55,15 +55,18 @@ public class PostController {
             @ApiResponse(responseCode = "200", description = "성공"),
             @ApiResponse(responseCode = "404", description = "게시물 없음")
     })
-    @GetMapping("/category/{category}")
+    @GetMapping("")
     public ResponseEntity<GlobalApiResponse<List<PostDto>>> getPostsByCategory(
         @RequestParam String category,
-        @RequestParam String filter
+        @RequestParam(required=false) String filter
         
     ) {
+        System.out.println("category: " + category);
         return postService.getPostsByCategory(GetPostListRequest.builder()
             .category(Category.valueOf(category))
-            .filter(ClassFilter.valueOf(filter))
+            .filter(
+                filter == null ? ClassFilter.SERVICE : ClassFilter.valueOf(filter)
+            )
             .build());
     }
 

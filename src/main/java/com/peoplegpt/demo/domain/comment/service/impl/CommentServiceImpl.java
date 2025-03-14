@@ -18,6 +18,8 @@ import com.peoplegpt.demo.domain.comment.model.dto.response.UpdateCommentRespons
 import com.peoplegpt.demo.domain.comment.model.entity.Comment;
 import com.peoplegpt.demo.domain.comment.repository.CommentRepository;
 import com.peoplegpt.demo.domain.comment.service.CommentService;
+import com.peoplegpt.demo.domain.post.model.entity.Post;
+import com.peoplegpt.demo.domain.post.repository.PostRepository;
 import com.peoplegpt.demo.domain.user.model.entity.UserRole;
 import com.peoplegpt.demo.domain.user.repository.UserRepository;
 
@@ -26,10 +28,12 @@ public class CommentServiceImpl implements CommentService{
     
     private final CommentRepository commentRepository;
     private final UserRepository userRepository;
+    private final PostRepository postRepository;
     
-    public CommentServiceImpl(CommentRepository commentRepository, UserRepository userRepository){
+    public CommentServiceImpl(CommentRepository commentRepository, UserRepository userRepository, PostRepository postRepository){
         this.commentRepository = commentRepository;
         this.userRepository = userRepository;
+        this.postRepository = postRepository;
     }
 
     private static final Logger logger = LogManager.getLogger(CommentServiceImpl.class);
@@ -38,9 +42,18 @@ public class CommentServiceImpl implements CommentService{
     //댓글 조회(특정 post) postId를 콘솔에서 입력 받아서 해당 post에 해당하는 comment를 조회..
     public ResponseEntity<GetCommentListResponse> getCommentList(long postId){
         List<Comment> comments = commentRepository.findCommentsByPostId(postId);
-
+        
         if(comments == null || comments.isEmpty()){
             logger.info("댓글이 존재하지 않습니다.");
+            return ResponseEntity.status(404)
+                    .body(GetCommentListResponse.builder()
+                        .comments(null)
+                        .build());
+        }
+
+        Post post = postRepository.findPostByPostId(postId);
+        if(post == null){
+            logger.info("게시물이 존재하지 않습니다.");
             return ResponseEntity.status(404)
                     .body(GetCommentListResponse.builder()
                         .comments(null)
@@ -50,6 +63,7 @@ public class CommentServiceImpl implements CommentService{
         return ResponseEntity.ok()
                 .body(GetCommentListResponse.builder()
                     .comments(comments)
+                    .post(post)
                     .build());
     }
 

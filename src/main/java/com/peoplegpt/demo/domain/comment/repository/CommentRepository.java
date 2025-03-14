@@ -32,7 +32,8 @@ public class CommentRepository {
 
     @SuppressWarnings("deprecation")
     public List<Comment> findCommentsByPostId(long postId) {
-        String sql = "SELECT * FROM Comment WHERE post_id = ? AND status = 'ACTIVE'";
+        String sql = "SELECT * FROM Comment WHERE post_id = ? AND status = 'ACTIVE'" +
+                    "ORDER BY created_at DESC";
         try {
             return jdbcTemplate.query(sql,
                     new Object[]{ postId },

@@ -54,9 +54,7 @@ dependencies {
     testImplementation 'org.mockito:mockito-junit-jupiter:3.12.4'
 
     // Swagger
-    implementation 'io.springfox:springfox-boot-starter:3.0.0'
-    implementation 'io.springfox:springfox-swagger-ui:3.0.0'
-    annotationProcessor 'io.swagger.core.v3:swagger-annotations:2.1.10'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
 
     // log4j
     implementation 'org.apache.logging.log4j:log4j-api:2.14.1'
@@ -78,3 +76,4 @@ tasks.named('test') {
 tasks.withType(JavaCompile) {
     options.compilerArgs << "-Xlint:deprecation"
 }
+

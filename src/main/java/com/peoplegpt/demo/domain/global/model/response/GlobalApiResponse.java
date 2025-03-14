@@ -40,3 +40,4 @@ public class GlobalApiResponse<T> {
                 .build();
     }
 }
+
